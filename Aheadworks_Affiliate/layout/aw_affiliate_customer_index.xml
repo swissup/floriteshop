@@ -1,0 +1,746 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Affiliate\Block\Customer\Container"
+                   name="customer.aw.aff.container"
+                   cacheable="false">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="awAffCustomerContainer" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/customer-container</item>
+                                </item>
+                                <item name="deps" xsi:type="array">
+                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                </item>
+                                <item name="imports" xsi:type="array">
+                                    <item name="isCustomerHasAccount" xsi:type="string">${ $.globalConfigProvider }:data.is_customer_has_account</item>
+                                </item>
+                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                <item name="children" xsi:type="array">
+                                    <item name="awAffSignupForm" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">10</item>
+                                        <item name="displayArea" xsi:type="string">signup-form</item>
+                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/signup/form</item>
+                                        <item name="formMessage" xsi:type="string" translate="true">Your request has been registered. We'll review it in 2-3 business days and notify you about our decision via email. Thanks for your patience.</item>
+                                        <item name="deps" xsi:type="array">
+                                            <item name="0" xsi:type="string">awAffSignupFormProvider</item>
+                                            <item name="1" xsi:type="string">awAffSignupConfigProvider</item>
+                                            <item name="2" xsi:type="string">awAffGlobalConfigProvider</item>
+                                        </item>
+                                        <item name="dataScope" xsi:type="string">data</item>
+                                        <item name="provider" xsi:type="string">awAffSignupFormProvider</item>
+                                        <item name="configProvider" xsi:type="string">awAffSignupConfigProvider</item>
+                                        <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="form_title" xsi:type="array">
+                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/ui/form/element/static-link</item>
+                                                <item name="dataScope" xsi:type="string">form_title</item>
+                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                <item name="elementTmpl" xsi:type="string">ui/form/element/html</item>
+                                                <item name="provider" xsi:type="string">awAffSignupConfigProvider</item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="additionalClasses" xsi:type="string">form-title</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="staticLinkUrl" xsi:type="string">${ $.globalConfigProvider }:data.terms_and_conditions_page_url</item>
+                                                </item>
+                                                <item name="default" xsi:type="string" translate="true"><![CDATA[To take part in our affiliate marketing program, please read our <a href="{static_link_url}" target="_blank">Terms & Conditions</a> and answer a couple of questions below.]]></item>
+                                                <item name="sortOrder" xsi:type="number">10</item>
+                                            </item>
+                                            <item name="referral_website" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                <item name="dataScope" xsi:type="string">referral_website</item>
+                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                <item name="provider" xsi:type="string">awAffSignupFormProvider</item>
+                                                <item name="label" xsi:type="string" translate="true">Enter referral website (or specify any primary traffic source)</item>
+                                                <item name="validation" xsi:type="array">
+                                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                                    <item name="validate-url" xsi:type="boolean">true</item>
+                                                </item>
+                                                <item name="sortOrder" xsi:type="number">20</item>
+                                            </item>
+                                            <item name="signup_message" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                                <item name="dataScope" xsi:type="string">signup_message</item>
+                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                <item name="provider" xsi:type="string">awAffSignupFormProvider</item>
+                                                <item name="label" xsi:type="string" translate="true">In this field specify any valuable information about your resource.</item>
+                                                <item name="notice" xsi:type="string" translate="true">The info you specify will significantly shorten the review process. Briefly describe the specifics of your resource, the products you are planning to promote, total unique visitors, and any other info you think might be relevant.</item>
+                                                <item name="validation" xsi:type="array">
+                                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                                </item>
+                                                <item name="sortOrder" xsi:type="number">30</item>
+                                            </item>
+                                            <item name="terms_and_condition_fix" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/single-checkbox</item>
+                                                <item name="dataScope" xsi:type="string">terms_and_conditions</item>
+                                                <item name="dataType" xsi:type="string">boolean</item>
+                                                <item name="formElement" xsi:type="string">checkbox</item>
+                                                <item name="template" xsi:type="string">ui/form/element/checkbox</item>
+                                                <item name="provider" xsi:type="string">awAffSignupFormProvider</item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="valueMap" xsi:type="array">
+                                                    <item name="true" xsi:type="number">1</item>
+                                                </item>
+                                                <item name="label" xsi:type="string" translate="true">I agree to Terms &amp; conditions</item>
+                                                <item name="validation" xsi:type="array">
+                                                    <item name="checked" xsi:type="boolean">true</item>
+                                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                                </item>
+                                                <item name="sortOrder" xsi:type="number">40</item>
+                                            </item>
+                                            <item name="terms_and_condition" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/single-checkbox</item>
+                                                <item name="dataScope" xsi:type="string">terms_and_conditions</item>
+                                                <item name="dataType" xsi:type="string">boolean</item>
+                                                <item name="formElement" xsi:type="string">checkbox</item>
+                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                <item name="tooltipTpl" xsi:type="string">Aheadworks_Affiliate/ui/form/element/helper/tooltip</item>
+                                                <item name="provider" xsi:type="string">awAffSignupFormProvider</item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="valueMap" xsi:type="array">
+                                                    <item name="true" xsi:type="number">1</item>
+                                                </item>
+                                                <item name="label" xsi:type="string" translate="true">I agree to Terms &amp; conditions</item>
+                                                <item name="validation" xsi:type="array">
+                                                    <item name="checked" xsi:type="boolean">true</item>
+                                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                                </item>
+                                                <item name="tooltip" xsi:type="array">
+                                                    <item name="description" xsi:type="string" translate="true">Click the question mark to read Affiliate terms &amp; conditions</item>
+                                                </item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="tooltipLink" xsi:type="string">${ $.globalConfigProvider }:data.terms_and_conditions_page_url</item>
+                                                </item>
+                                                <item name="sortOrder" xsi:type="number">40</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="awAffTabs" xsi:type="array">
+                                        <item name="displayArea" xsi:type="string">tabs</item>
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs</item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="awAffGenerateLinkModal" xsi:type="array">
+                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/modal</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="dataScope" xsi:type="string"/>
+                                                    <item name="options" xsi:type="array">
+                                                        <item name="title" xsi:type="string" translate="true">Get Link</item>
+                                                        <item name="type" xsi:type="string">popup</item>
+                                                        <item name="innerScroll" xsi:type="boolean">true</item>
+                                                        <item name="modalClass" xsi:type="string">aw-affiliate-generate-link-modal</item>
+                                                        <item name="buttons" xsi:type="array">
+                                                            <item name="0" xsi:type="array">
+                                                                <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                                                <item name="actions" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">closeModal</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="awAffPromoLinkForm" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/promo-link/form</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                        </item>
+                                                        <item name="dataScope" xsi:type="string">data</item>
+                                                        <item name="provider" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                        <item name="ajaxSave" xsi:type="boolean">true</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="campaign_id" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/promo-link/form/element/abstract</item>
+                                                                <item name="provider" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                                <item name="dataScope" xsi:type="string">campaign_id</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="label" xsi:type="string" translate="true">Campaign ID</item>
+                                                                <item name="visible" xsi:type="boolean">false</item>
+                                                                <item name="sortOrder" xsi:type="number">10</item>
+                                                            </item>
+                                                            <item name="basic_url" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/promo-link/form/element/abstract</item>
+                                                                <item name="dataScope" xsi:type="string">basic_url</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                                <item name="provider" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                                <item name="label" xsi:type="string" translate="true">Insert the link for a particular product</item>
+                                                                <item name="validation" xsi:type="array">
+                                                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                                                    <item name="validate-url" xsi:type="boolean">true</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">20</item>
+                                                            </item>
+                                                            <item name="traffic_source" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/promo-link/form/element/abstract</item>
+                                                                <item name="dataScope" xsi:type="string">traffic_source</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                                <item name="provider" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                                <item name="label" xsi:type="string" translate="true">Traffic source</item>
+                                                                <item name="validation" xsi:type="array">
+                                                                    <item name="max_text_length" xsi:type="number">40</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">30</item>
+                                                            </item>
+                                                            <item name="generated_link" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                <item name="dataScope" xsi:type="string">generated_link</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                                <item name="provider" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                                <item name="label" xsi:type="string" translate="true">Or just copy &amp; paste this link anywhere you want!</item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="visible" xsi:type="string">${ $.provider }:data.generated_link</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">40</item>
+                                                            </item>
+                                                            <item name="copy_to_clipboard" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/promo-link/form/element/copy-to-clipboard</item>
+                                                                <item name="provider" xsi:type="string">awAffPromoLinkFormProvider</item>
+                                                                <item name="title" xsi:type="string" translate="true">Copy link to clipboard</item>
+                                                                <item name="actions" xsi:type="array">
+                                                                    <item name="0" xsi:type="array">
+                                                                        <item name="targetName" xsi:type="string">${ $.parentName }.copy_to_clipboard</item>
+                                                                        <item name="actionName" xsi:type="string">copyTextToClipboard</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="visible" xsi:type="string">${ $.parentName + '.generated_link' }:visible</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">50</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="accountDisabledMessage" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/message</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="messageHtml" xsi:type="string" translate="true">Your account was disabled. Please contact the store administrator on the reason for blocking your account.</item>
+                                                <item name="messageAdditionalClasses" xsi:type="string">message-error error account-disabled</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isMessageVisible" xsi:type="string">!${ $.globalConfigProvider }:data.is_account_active</item>
+                                                </item>
+                                            </item>
+                                            <item name="paymentDetailsMessage" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/message</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="messageHtml" xsi:type="string" translate="true">The first step is complete! Now, please submit payment details so we could transfer payments to you.</item>
+                                                <item name="messageAdditionalClasses" xsi:type="string">notice</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isMessageVisible" xsi:type="string">!${ $.globalConfigProvider }:data.is_account_payment_info_specified</item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffAccountInfoTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">account-info</item>
+                                                <item name="tabIndex" xsi:type="string">info</item>
+                                                <item name="title" xsi:type="string" translate="true">Information</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_customer_has_account</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="awAffAccountInfoForm" xsi:type="array">
+                                                        <item name="sortOrder" xsi:type="string">10</item>
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/account-info/form</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                            <item name="1" xsi:type="string">awAffAccountInfoConfigProvider</item>
+                                                            <item name="2" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                        </item>
+                                                        <item name="dataScope" xsi:type="string">data</item>
+                                                        <item name="provider" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                        <item name="configProvider" xsi:type="string">awAffAccountInfoConfigProvider</item>
+                                                        <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                        <item name="imports" xsi:type="array">
+                                                            <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_account_active</item>
+                                                        </item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="form_title" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/ui/form/element/static-link</item>
+                                                                <item name="dataScope" xsi:type="string">form_title</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="elementTmpl" xsi:type="string">ui/form/element/html</item>
+                                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                                <item name="provider" xsi:type="string">awAffAccountInfoConfigProvider</item>
+                                                                <item name="additionalClasses" xsi:type="string">terms-link</item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="staticLinkUrl" xsi:type="string">${ $.globalConfigProvider }:data.terms_and_conditions_page_url</item>
+                                                                </item>
+                                                                <item name="default" xsi:type="string" translate="true"><![CDATA[For more information about affiliate program please go to <a href="{static_link_url}" target="_blank">Terms & Conditions</a> page.]]></item>
+                                                                <item name="sortOrder" xsi:type="number">10</item>
+                                                            </item>
+                                                            <item name="referral_website" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                <item name="dataScope" xsi:type="string">referral_website</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="provider" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                                <item name="label" xsi:type="string" translate="true">Referral website (primary traffic source)</item>
+                                                                <item name="validation" xsi:type="array">
+                                                                    <item name="validate-url" xsi:type="boolean">true</item>
+                                                                </item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="disabled" xsi:type="string">!${ $.globalConfigProvider }:data.is_account_active</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">20</item>
+                                                            </item>
+                                                            <item name="payment_type" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Aheadworks_Affiliate/js/ui/form/element/select</item>
+                                                                <item name="dataScope" xsi:type="string">payment_type</item>
+                                                                <item name="provider" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                                <item name="configProvider" xsi:type="string">awAffAccountInfoConfigProvider</item>
+                                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="dataType" xsi:type="string">number</item>
+                                                                <item name="label" xsi:type="string" translate="true">Payment Type</item>
+                                                                <item name="caption" xsi:type="string" translate="true">-- Please Select --</item>
+                                                                <item name="validation" xsi:type="array">
+                                                                    <item name="validate-select" xsi:type="boolean">true</item>
+                                                                </item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="options" xsi:type="string">${ $.configProvider }:data.payment_type_options</item>
+                                                                    <item name="disabled" xsi:type="string">!${ $.globalConfigProvider }:data.is_account_active</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">30</item>
+                                                            </item>
+                                                            <item name="payment_info" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                                                <item name="dataScope" xsi:type="string">payment_info</item>
+                                                                <item name="template" xsi:type="string">ui/form/field</item>
+                                                                <item name="provider" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                                <item name="label" xsi:type="string" translate="true">Payment Information</item>
+                                                                <item name="notice" xsi:type="string" translate="true">Please specify personal payment info, which we could use for payout: PayPal email or any e-wallet payment details.</item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="disabled" xsi:type="string">!${ $.globalConfigProvider }:data.is_account_active</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">40</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffPromotionsTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">promotions</item>
+                                                <item name="tabIndex" xsi:type="string">promotions</item>
+                                                <item name="title" xsi:type="string" translate="true">Promotions</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_account_active</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="awAffUniqueCouponPrefixForm" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/promotions/coupon-prefix/form</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffUniqueCouponPrefixFormProvider</item>
+                                                        </item>
+                                                        <item name="ajaxSave" xsi:type="boolean">true</item>
+                                                        <item name="dataScope" xsi:type="string">data</item>
+                                                        <item name="provider" xsi:type="string">awAffUniqueCouponPrefixFormProvider</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="unique_coupon_prefix" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                <item name="dataScope" xsi:type="string">unique_coupon_prefix</item>
+                                                                <item name="template" xsi:type="string">Aheadworks_Affiliate/ui/form/field</item>
+                                                                <item name="additionalClasses" xsi:type="string">unique-coupon-prefix</item>
+                                                                <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                                <item name="provider" xsi:type="string">awAffUniqueCouponPrefixFormProvider</item>
+                                                                <item name="label" xsi:type="string" translate="true">Code Prefix</item>
+                                                                <item name="notice" xsi:type="string" translate="true"><![CDATA[Provide any alphanumeric combination as a unique code prefix to be used in coupon codes. Once the code prefix is saved, it can't be changed.<br /> Example: <b>ABC10</b> - Unique ID;  <b>SHOES15OFF</b> - coupon code template;  Generated coupon: <b>ABC10-SHOES15OFF</b>]]></item>
+                                                                <item name="validation" xsi:type="array">
+                                                                    <item name="required-entry" xsi:type="boolean">true</item>
+                                                                    <item name="validate-alphanum" xsi:type="boolean">true</item>
+                                                                    <item name="max_text_length" xsi:type="number">12</item>
+                                                                </item>
+                                                                <item name="imports" xsi:type="array">
+                                                                    <item name="value" xsi:type="string">${ $.accountDataProvider }:data.unique_coupon_prefix</item>
+                                                                    <item name="disabled" xsi:type="string">${ $.parentName }:isSetCouponPrefix</item>
+                                                                </item>
+                                                                <item name="sortOrder" xsi:type="number">10</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="affiliate_group_info" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/affiliate-group-info</item>
+                                                        <item name="groupInfoProvider" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        <item name="noticeStr" xsi:type="string" translate="true">Being a member of a {group_name} affiliate group gives you {commission_formatted} premium from each item purchase (in addition to the regular commission).</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="aw_affiliate_promoting_campaigns_listing" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                        <item name="cssclass" xsi:type="string">aw-affiliate-promoting-campaigns-listing</item>
+                                                        <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_promoting_campaigns_listing_data_source</item>
+                                                        <item name="ns" xsi:type="string">aw_affiliate_promoting_campaigns_listing</item>
+                                                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                        <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                        <item name="dataLinks" xsi:type="array">
+                                                            <item name="imports" xsi:type="boolean">false</item>
+                                                            <item name="exports" xsi:type="boolean">true</item>
+                                                        </item>
+                                                        <item name="accountDataProvider" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                        <item name="groupDataProvider" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffAccountInfoFormProvider</item>
+                                                            <item name="1" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        </item>
+                                                        <item name="imports" xsi:type="array">
+                                                            <item name="isSetCouponPrefix" xsi:type="string">${ $.parentName + '.awAffUniqueCouponPrefixForm' }:isSetCouponPrefix</item>
+                                                            <item name="isSetAffiliateCouponPrefix" xsi:type="string">${ $.parentName + '.awAffUniqueCouponPrefixForm' }:isSetCouponPrefix</item>
+                                                            <item name="isNeedToDisplayGroupCommission" xsi:type="string">${ $.groupDataProvider }:data.is_need_display_group_info</item>
+                                                            <item name="groupCommissionFormatted" xsi:type="string">${ $.groupDataProvider }:data.commission_formatted</item>
+                                                        </item>
+                                                        <item name="exports" xsi:type="array">
+                                                            <item name="isSetCouponPrefix" xsi:type="string">${ $.ns }.${ $.ns }.aw_affiliate_promoting_campaigns_columns.coupon_code:isSetCouponPrefix</item>
+                                                            <item name="isSetAffiliateCouponPrefix" xsi:type="string">${ $.ns }.${ $.ns }.aw_affiliate_promoting_campaigns_columns.coupon_action:isSetCouponPrefix</item>
+                                                            <item name="isNeedToDisplayGroupCommission" xsi:type="string">${ $.ns }.${ $.ns }.aw_affiliate_promoting_campaigns_columns.commission_value:isNeedToDisplayGroupCommission</item>
+                                                            <item name="groupCommissionFormatted" xsi:type="string">${ $.ns }.${ $.ns }.aw_affiliate_promoting_campaigns_columns.commission_value:groupCommissionFormatted</item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffRecommendationsTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">recommendations</item>
+                                                <item name="tabIndex" xsi:type="string">recommendations</item>
+                                                <item name="title" xsi:type="string" translate="true">Recommendations</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_account_active</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="recommendations_description" xsi:type="array">
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <item name="config" xsi:type="array">
+                                                            <item name="template" xsi:type="string">Aheadworks_Affiliate/message</item>
+                                                        </item>
+                                                        <item name="isMessageVisible" xsi:type="boolean">true</item>
+                                                        <item name="messageHtml" xsi:type="string" translate="true">To save your time and effort that you would spend searching for products suitable for promotion on your resource, we've gathered our top picks in one place. Check out the list of recommended products to find the ones that work best for you.</item>
+                                                        <item name="messageAdditionalClasses" xsi:type="string">recommendations-description</item>
+                                                    </item>
+                                                    <item name="affiliate_group_info" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/affiliate-group-info</item>
+                                                        <item name="groupInfoProvider" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        <item name="noticeStr" xsi:type="string" translate="true">Being a member of a {group_name} affiliate group gives you {commission_formatted} premium from each item purchase (in addition to the regular commission).</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="aw_affiliate_recommended_product_listing" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                        <item name="recommendationsConfigProvider" xsi:type="string">awAffRecommendationsConfigProvider</item>
+                                                        <item name="groupDataProvider" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffRecommendationsConfigProvider</item>
+                                                            <item name="1" xsi:type="string">awAffGroupInfoProvider</item>
+                                                        </item>
+                                                        <item name="cssclass" xsi:type="string">aw-affiliate-recommended-product-listing</item>
+                                                        <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_recommended_product_listing_data_source</item>
+                                                        <item name="ns" xsi:type="string">aw_affiliate_recommended_product_listing</item>
+                                                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                        <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                        <item name="dataLinks" xsi:type="array">
+                                                            <item name="imports" xsi:type="boolean">false</item>
+                                                            <item name="exports" xsi:type="boolean">true</item>
+                                                        </item>
+                                                        <item name="imports" xsi:type="array">
+                                                            <item name="availableCampaignsOptions" xsi:type="string">${ $.recommendationsConfigProvider }:data.available_campaigns_options</item>
+                                                            <item name="isNeedToDisplayGroupCommission" xsi:type="string">${ $.groupDataProvider }:data.is_need_display_group_info</item>
+                                                            <item name="groupCommissionFormatted" xsi:type="string">${ $.groupDataProvider }:data.commission_formatted</item>
+                                                        </item>
+                                                        <item name="exports" xsi:type="array">
+                                                            <item name="availableCampaignsOptions" xsi:type="string">${ $.ns }.${ $.ns }.listing_parameters.campaign_id:options</item>
+                                                            <item name="isNeedToDisplayGroupCommission" xsi:type="string">${ $.ns }.${ $.ns }.product_columns.commission_value:isNeedToDisplayGroupCommission</item>
+                                                            <item name="groupCommissionFormatted" xsi:type="string">${ $.ns }.${ $.ns }.product_columns.commission_value:groupCommissionFormatted</item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffReportTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">reports</item>
+                                                <item name="tabIndex" xsi:type="string">reports</item>
+                                                <item name="title" xsi:type="string" translate="true">Reports</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_account_active</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="link_grid_container" xsi:type="array">
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <item name="template" xsi:type="string">Aheadworks_Affiliate/ui/grid/container</item>
+                                                        <item name="title" xsi:type="string" translate="true">Performance by Link</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="aw_affiliate_customer_report_link_listing" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                                <item name="cssclass" xsi:type="string">aw-affiliate-report-link-listing</item>
+                                                                <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_customer_report_link_listing_data_source</item>
+                                                                <item name="ns" xsi:type="string">aw_affiliate_customer_report_link_listing</item>
+                                                                <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                                <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                                <item name="dataLinks" xsi:type="array">
+                                                                    <item name="imports" xsi:type="boolean">false</item>
+                                                                    <item name="exports" xsi:type="boolean">true</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="coupon_grid_container" xsi:type="array">
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <item name="template" xsi:type="string">Aheadworks_Affiliate/ui/grid/container</item>
+                                                        <item name="title" xsi:type="string" translate="true">Performance by Coupon</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="aw_affiliate_customer_report_coupon_listing" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                                <item name="cssclass" xsi:type="string">aw-affiliate-report-coupon-listing</item>
+                                                                <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_customer_report_coupon_listing_data_source</item>
+                                                                <item name="ns" xsi:type="string">aw_affiliate_customer_report_coupon_listing</item>
+                                                                <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                                <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                                <item name="dataLinks" xsi:type="array">
+                                                                    <item name="imports" xsi:type="boolean">false</item>
+                                                                    <item name="exports" xsi:type="boolean">true</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffBalanceTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">balance</item>
+                                                <item name="tabIndex" xsi:type="string">balance</item>
+                                                <item name="title" xsi:type="string" translate="true">Balance</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_customer_has_account</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="balance_info" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/balance-info</item>
+                                                        <item name="balanceProvider" xsi:type="string">awAffBalanceInfoProvider</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffBalanceInfoProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="aw_affiliate_pending_commissions_listing" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                        <item name="cssclass" xsi:type="string">aw-affiliate-pending-commissions-listing</item>
+                                                        <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_pending_commissions_listing_data_source</item>
+                                                        <item name="ns" xsi:type="string">aw_affiliate_pending_commissions_listing</item>
+                                                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                        <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                        <item name="dataLinks" xsi:type="array">
+                                                            <item name="imports" xsi:type="boolean">false</item>
+                                                            <item name="exports" xsi:type="boolean">true</item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffTransactionTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">transactions</item>
+                                                <item name="tabIndex" xsi:type="string">transactions</item>
+                                                <item name="title" xsi:type="string" translate="true">Transactions</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_customer_has_account</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="aw_affiliate_customer_transaction_listing" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                        <item name="cssclass" xsi:type="string">aw-affiliate-customer-transaction-listing</item>
+                                                        <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_customer_transaction_listing_data_source</item>
+                                                        <item name="ns" xsi:type="string">aw_affiliate_customer_transaction_listing</item>
+                                                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                        <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                        <item name="dataLinks" xsi:type="array">
+                                                            <item name="imports" xsi:type="boolean">false</item>
+                                                            <item name="exports" xsi:type="boolean">true</item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="awAffPayoutTab" xsi:type="array">
+                                                <item name="tabClass" xsi:type="string">payouts</item>
+                                                <item name="tabIndex" xsi:type="string">payouts</item>
+                                                <item name="title" xsi:type="string" translate="true">Payouts</item>
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">awAffPayoutConfigProvider</item>
+                                                    <item name="1" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                </item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/tab</item>
+                                                </item>
+                                                <item name="configProvider" xsi:type="string">awAffPayoutConfigProvider</item>
+                                                <item name="globalConfigProvider" xsi:type="string">awAffGlobalConfigProvider</item>
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="isActive" xsi:type="string">${ $.globalConfigProvider }:data.is_account_active</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="balance_info" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/balance-info</item>
+                                                        <item name="balanceProvider" xsi:type="string">awAffBalanceInfoProvider</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">awAffBalanceInfoProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="send_request" xsi:type="array">
+                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                        <item name="buttonClasses" xsi:type="string">action primary</item>
+                                                        <item name="component" xsi:type="string">Aheadworks_Affiliate/js/tabs/payout/request-button</item>
+                                                        <item name="template" xsi:type="string">Aheadworks_Affiliate/tabs/payout/request-button</item>
+                                                        <item name="configProvider" xsi:type="string">awAffPayoutConfigProvider</item>
+                                                        <item name="elementTmpl" xsi:type="string">ui/form/element/button</item>
+                                                        <item name="noticeTmpl" xsi:type="string">Aheadworks_Affiliate/message</item>
+                                                        <item name="noticeText" xsi:type="string" translate="true">{remaining_balance} is left to reach the minimum balance for a payout. Check out the availability dates of your pending commissions to know when you'll be able to request money payout.</item>
+                                                        <item name="isNoticeVisible" xsi:type="boolean">true</item>
+                                                        <item name="noticeAdditionalClasses" xsi:type="string">notice</item>
+                                                        <item name="title" xsi:type="string" translate="true">Send Request</item>
+                                                        <item name="config" xsi:type="array">
+                                                            <item name="submit_url" xsi:type="url" path="aw_affiliate/payout/newPayout"/>
+                                                        </item>
+                                                        <item name="imports" xsi:type="array">
+                                                            <item name="isNoticeVisible" xsi:type="string">${ $.configProvider }:data.is_notice_visible</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="payout_grid_container" xsi:type="array">
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <item name="template" xsi:type="string">Aheadworks_Affiliate/ui/grid/container</item>
+                                                        <item name="title" xsi:type="string" translate="true">Payment History</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="aw_affiliate_customer_payout_listing" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                                                                <item name="cssclass" xsi:type="string">aw-affiliate-payout-listing</item>
+                                                                <item name="externalProvider" xsi:type="string">${ $.ns }.aw_affiliate_customer_payout_listing_data_source</item>
+                                                                <item name="ns" xsi:type="string">aw_affiliate_customer_payout_listing</item>
+                                                                <item name="realTimeLink" xsi:type="boolean">true</item>
+                                                                <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                                                                <item name="dataLinks" xsi:type="array">
+                                                                    <item name="imports" xsi:type="boolean">false</item>
+                                                                    <item name="exports" xsi:type="boolean">true</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="awAffGlobalConfigProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                            </item>
+                            <item name="awAffSignupFormProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="submit_url" xsi:type="url" path="aw_affiliate/signup/submit"/>
+                                </item>
+                            </item>
+                            <item name="awAffSignupConfigProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                            <item name="awAffAccountInfoFormProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="submit_url" xsi:type="url" path="aw_affiliate/account/saveInfo"/>
+                                </item>
+                            </item>
+                            <item name="awAffAccountInfoConfigProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                            <item name="awAffPromoLinkFormProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="submit_url" xsi:type="url" path="aw_affiliate/promo/generateLink"/>
+                                </item>
+                            </item>
+                            <item name="awAffUniqueCouponPrefixFormProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="submit_url" xsi:type="url" path="aw_affiliate/account/saveCouponPrefix"/>
+                                </item>
+                            </item>
+                            <item name="awAffPayoutConfigProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                            <item name="awAffBalanceInfoProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                            <item name="awAffGroupInfoProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                            <item name="awAffRecommendationsConfigProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <argument name="data_role" xsi:type="string">aw-aff-customer-container</argument>
+                    <argument name="scope_for_data_bind" xsi:type="string">awAffCustomerContainer</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

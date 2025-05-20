@@ -1,0 +1,327 @@
+<?php
+/** @var \Mirasvit\RewardsCustomerAccount\Block\Account\Listing $block */
+$collection = $block->getTransactionCollection();
+$earnRules  = $block->getDisplayEarnRules();
+$spendRules = $block->getDisplaySpendRules();
+$points     = $this->helper('Mirasvit\Rewards\Helper\Data')->formatPointsToCurrency($block->getBalancePoints());
+$logoHtml   = $this->helper('Mirasvit\Rewards\Helper\Data')->getLogoHtml();
+$pointUnit  = $this->helper('Mirasvit\Rewards\Helper\Data')->getPointsName();
+?>
+<div class="block block-rewards-account-summary order-details-items">
+    <div class="block-title" style="display:none;">
+        <?= $block->getChildHtml('rewards.page.main.title') ?>
+        <strong><?= __('Points Summary') ?></strong>
+    </div>
+
+    <div class="block-content">
+        <div class="mst-rewards-account-amount-wrapper">
+            <div>
+                <div class="mst-rewards-account-subtitle"><?= __('Current Balance') ?></div>
+
+                <div class="mst-rewards-account-amount">
+                    <div class="points"><?= $points ?></div>
+                    <div class="unit"><?= __($pointUnit) ?></div>
+                </div>
+            </div>
+
+            <?= $logoHtml ?>
+        </div>
+
+        <p><?= $block->getChildHtml('rewards.notification') ?></p>
+    </div>
+
+    <?php if ($earnRules->count()): ?>
+        <div class="block-title earn subtitle">
+            <strong><?= __('How to earn points') ?></strong>
+        </div>
+        <div class="block-content">
+            <section class="rewards-share">
+            <div class="rewards-banner">
+                <!-- Swissup Modifications: CMS "rewards_additional" Block -->
+                <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('rewards_additional')->toHtml(); ?>
+            </div>
+            <?php if ($block->isReferralActive()): ?>
+            <div class="share-wrapper">
+                <div class="share-social">
+                    <?php
+                    /** @var \Mirasvit\RewardsCustomerAccount\Block\Account\Listing $block */
+                    $socialRules = $block->getDisplaySocialRules();
+                    ?>
+                    <?php if ($block->getFacebookIsActive()): ?>
+                        <div id="fb-root"></div>
+                    <?php endif; ?>
+
+                    <?php if ($socialRules->count()): ?>
+                        <div class="block-content">
+                            <ul>
+                                <?php foreach ($socialRules as $rule): ?>
+                                    <li><?= $rule->getFrontName(); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                    <!-- social buttons seneration -->
+
+                    <?php if ($block->isSocialActive()): ?>
+                        
+                        <div class="block-title">
+                            <strong><?= __('Share the referral link in the social media') ?></strong>
+                        </div>
+                        
+                        <div class="block-content">
+                            <div class="block-rewards-referral-list">
+                                <div class="rewards-social-buttons">
+                                    <div class="fb">
+                                        <?php if ($block->isLikeActive()): ?>
+                                            <div class="fb-like" data-href="<?= $block->getShareUrl()?>"
+                                                data-layout="button"
+                                                data-action="like"
+                                                data-show-faces="false"
+                                                data-share="false"
+                                                data-font="arial"
+                                                data-width="61"
+                                                data-height="20"
+                                                data-colorscheme="light"></div>
+                                        <?php endif; ?>
+                                        <?php if ($block->isShareActive()): ?>
+                                            <div class="fb-share-button" data-href="<?= $block->getShareUrl() ?>" data-layout="button"></div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php if ($block->isTweetActive()): ?>
+                                    <div class="tw">
+                                        <a href="https://twitter.com/share" class="twitter-share-button"
+                                        data-url="<?= $block->getShareUrl() ?>" data-count="none"
+                                        data-text="<?= __('Check this out!') ?>"><?= __('Tweet on Twitter') ?></a>
+                                    </div>
+                                    <?php endif; ?>
+                                    
+
+                                    <?php
+                                        $url = $block->getShareUrl();
+                                        $encoded_url = urlencode($url);
+                                        $whatsapp_link = "https://wa.me/?text=" . $encoded_url;
+                                    ?>
+
+                                    <a class="whatsapp-desktop " href="<?php echo $whatsapp_link ?>"><i class="fa fa-whatsapp" aria-hidden="true"></i>Share</a>
+                                    <span id="shareButton" class="whatsapp-mobile"><i class="fa fa-whatsapp" aria-hidden="true"></i>Share</span>
+
+                                    <script>
+                                        // Select the button element
+                                        const shareButton = document.getElementById('shareButton');
+                                        // Add a click event listener to the button
+                                        shareButton.addEventListener('click', () => {
+                                        // Define the content you want to share
+                                        const shareText = 'Comparte el momento con una buena taza de té. Ve todos los accesorios y tés que hay en Florité';
+                                        const shareUrl = '<?php echo $block->getShareUrl() ?>';
+                                        // Create the WhatsApp share URL
+                                        const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(shareUrl)}`;
+                                        // Open WhatsApp with the share URL
+                                        window.location.href = whatsappUrl;
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            var rewardsCurrentUrl = '<?php echo $block->getCurrentEncodedUrl($block->getCurrentUrl()); ?>';
+                            var rewardsShareCurrentUrl = '<?php echo $block->getCurrentUrl(); ?>';
+                            var rewardsFacebookApiVersion = '<?php echo $block->getFbApiVersion(); ?>';
+                        </script>
+                    <?php endif; ?>
+                </div>
+                <div class="share-link">
+                    <div class="earn subtitle">
+                        <?php if ($socialRules->count()): ?>
+                            <strong><?= __("Or you may send this link in your messages to anyone") ?></strong>
+                        <?php else: ?>
+                            <strong><?= __("You may send this link in your messages to anyone") ?></strong>
+                        <?php endif; ?>
+                    </div>
+                    <div class="block-content">
+                        <span class="rewards-referral-link">
+                            <?php echo $block->getShareUrl() ?>
+                        </span>
+                        <span class="rewards-referral-button action primary">
+                            <?= __("Invita a tus amigos") ?>
+                        </span>
+                    </div>
+
+                    <!-- QR Code Generation -->
+                    <div class="qr-share">
+                        <?php 
+                            $url = $block->getShareUrl();
+                            $encoded_url = urlencode(urlencode($url));
+                        ?>
+                        <img src="<?php echo $block->getUrl('qrcode/index/index', ['url' => $encoded_url]); ?>" alt="QR Code">
+                    </div>
+
+                </div>
+            </div>
+            <?php endif; ?>
+        </section>
+        <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('rewards_explanation')->toHtml(); ?>
+        </div>
+    <?php endif; ?>
+</div>
+
+
+<!-- Swissup Modifications -->
+
+<style>
+    section.rewards-share {
+        padding: 2rem;
+        justify-content: space-between;
+        border-radius: 0.75rem;
+        background-color: white;
+        width: 70%;
+        margin: 0 auto;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),
+        0 2px 4px -2px rgba(0,0,0,.1);
+    }
+
+    section.rewards-share .rewards-banner {
+        width: 100%;
+    }
+
+    section.rewards-share .rewards-banner img {
+        
+        margin-bottom: 2rem;
+        border-radius: 0.75rem;
+        margin: 0 auto;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),
+        0 2px 4px -2px rgba(0,0,0,.1);
+    }
+    section.rewards-share .share-wrapper {
+        display: flex;
+        gap: 2rem;
+    }
+
+    section.rewards-share .share-wrapper .rewards-social-buttons div {
+        display: inline-flex;
+    }
+    section.rewards-share .share-wrapper .block-title,
+    section.rewards-share .share-wrapper .subtitle {
+        line-height: normal;
+        font-size: 15px !important;
+        display: inline-flex;
+    }
+    section.rewards-share .share-wrapper .block-title {
+        margin-bottom: 0 !important;
+        border: none !important;
+    }
+    section.rewards-share .share-wrapper .block-title strong,
+    section.rewards-share .share-wrapper .subtitle strong {
+        font-weight: 600 !important;
+        font-size: 1.25rem !important;
+        margin-bottom: 2rem;
+    }
+    
+    section.rewards-share .share-wrapper .share-social,
+    section.rewards-share .share-wrapper .share-link {
+        width: 50%;
+    }
+
+    section.rewards-share .share-wrapper .share-link .block-content {
+        display:inline-flex;
+    }
+
+    section.rewards-share .share-wrapper .share-link .rewards-referral-link {
+        background: #eaeaea;
+        border: 2px dashed #aaa;
+        padding: 1rem;
+    }
+    .rewards-referral-button  {display: none !important;}
+
+    section.rewards-share .share-wrapper .share-social .rewards-social-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    section.rewards-share .share-wrapper .share-social {
+        min-height: 150px;
+    }
+    section.rewards-share .share-wrapper .share-social a.whatsapp-desktop,
+    section.rewards-share .share-wrapper .share-social span#shareButton {
+        background-color: #4caf50;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    section.rewards-share .share-wrapper .share-social span#shareButton i {
+        margin-right: 10px;
+    }
+
+    p.rewards-explanation { margin-top: 25px; }
+    
+    .whatsapp-mobile { display:none; }
+    .whatsapp-desktop { display:block; }
+
+    @media (max-width: 480px) {
+        section.rewards-share {
+            width: auto;
+        }
+        section.rewards-share .share-wrapper {
+            flex-direction: column;
+        }
+        section.rewards-share .share-wrapper .share-social,
+        section.rewards-share .share-wrapper .share-link {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .rewards-referral-button { display: inline-block  !important; background: yellow; width: 100%; margin-bottom: 20px;}
+        
+        section.rewards-share .share-wrapper .share-link .rewards-referral-link {display: none;}
+
+        .whatsapp-mobile { display:block; }
+        .whatsapp-desktop { display:none; }
+    }
+</style>
+
+<script type="text/javascript">
+    var fbLocaleCode = '<?=$block->getLocaleCode()?>';
+    var fbAppId = '<?=$block->getAppId()?>';
+</script>
+<script>
+    require.config({
+        deps: [
+            'jquery',
+            "mage/mage"
+        ],
+        callback: function ($) {
+            'use strict';
+            var dataForm = $('#referralForm');
+            dataForm.mage('validation', {});
+        }
+    });
+</script>
+<script>
+    require.config({
+        deps: [
+            'jquery'
+        ],
+        callback: function ($) {
+            $(document).ready(function() {
+                $(".rewards-referral-button").click(function() {
+                    // Get the text content from the linked element
+                    var data = $(".rewards-referral-link").text();
+
+                    if (navigator.canShare && navigator.canShare({ text: data })) {
+                    // Share the data using the Web Share API
+                    navigator.share({
+                        text: data
+                    })
+                        .then(() => console.log("Shared successfully!"))
+                        .catch(error => console.error("Sharing failed:", error));
+                    } else {
+                    console.warn("Sharing API not supported");
+                    }
+                });
+            });
+        }
+    });
+    
+</script>

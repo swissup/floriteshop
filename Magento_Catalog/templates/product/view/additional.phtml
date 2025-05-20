@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php foreach ($block->getChildHtmlList() as $_html): ?>
+    <?= /* @escapeNotVerified */ $_html ?>
+<?php endforeach; ?>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+    	setTimeout(function(){
+    		console.log('ready');
+				$('body .page-main .product.info .product.data.items .item.title[aria-labeledby="tab-label-product.info.description-title"] a').trigger('click');
+		}, 7000);
+    });
+</script>
